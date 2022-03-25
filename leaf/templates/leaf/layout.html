@@ -1,29 +1,38 @@
 {% load static %}
-
 <!DOCTYPE html>
 
 <html>
+
     <head>
+        <title>Eats</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'leaf.css' %}"> </link>
         <title>Map test</title>
         <script src="{% static 'leaff.js' %}"></script>
     </head>
 
     <body>
-        <form id="coordForm">
-            <input type="text" name = 'zip' placeholder="zip code">
-            <input type="submit">
-        </form>
-
-        <div id="map">
-
+        <div class="topBar">
+            <h1>Eats</h1>
+            <div class='nav'>
+                <a class='nav_item' href='#'>
+                    Explore
+                </a>
+            </div>
         </div>
+
+        {% block body %}
+        {% endblock %}
     </body>
+
+
 
 </html>

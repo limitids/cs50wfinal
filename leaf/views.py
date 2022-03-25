@@ -1,8 +1,10 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from .models import zipToCoord
+from .models import Resturaunt, zipToCoord
 import time
 import json
+from django.db.models import Count, F, Value
+
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 currentCoords = [0,0]
@@ -10,7 +12,7 @@ currentCoords = [0,0]
 
 def populateZips():
     data = []
-    file = open('C:/Users/thoma/Desktop/finalCS50W/leaftlettest/leaflet/leaf/ziptocoord.txt')
+    file = open('/Users/thomasbradford/Desktop/scalabilityandsecurity/leaf/ziptocoord.txt')
     for line in file:
         line = line.replace('\n','')
         data = line.split(',')
@@ -21,7 +23,7 @@ def populateZips():
 
 
 def index(request):
-    return render(request,"leaf/bruh.html")
+    return render(request,"leaf/start.html")
 
 @csrf_exempt
 def zipConversion(request):
@@ -38,4 +40,30 @@ def zipConversion(request):
         return JsonResponse({'lat':f"{currentCoords[0]}",
         "long":f"{currentCoords[1]}"})
 
+@csrf_exempt
+def getResturaunts(request):
+    # Params, zip (add radius later)
+    # returns resturaunts nearby as resturaunt objects
+    if request.method == 'PUT':
+
+        data = json.loads(request.body)
+        zip = data['zip']
+        searchRange = 20 #in miles
+
+        coords = zipToCoord.objects.filter(zip=zip).first()
+        minlong = float(coords.long) - 20/60
+        maxlong = minlong + 20/60
+        minlat = float(coords.lat)
+        maxlat = minlat + 20/69
+
+        #resturaunts = Resturaunt.objects.filter(long__in[minlong,maxlong])
+        return JsonResponse({'resturaunts':resturaunts[0].title})
+
+
+def explore(request):
+    return render(request,'leaf/explore.html')
+
+
+
+        
 

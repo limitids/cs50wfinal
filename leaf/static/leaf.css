@@ -1,9 +1,53 @@
-#map { height: 400px; 
-
+#map { 
+    height: 200px; 
+    width:800px;
+    margin-bottom: 20px;
 }
 
 body {
-    padding: 20px;
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #E4DFDA;
+    color: rgb(22, 22, 22);
+    font-family: 'Roboto', sans-serif;
 
+}
+
+.topBar {
+    background-color: #52796F;
+    height:100px;
+    color: white;
+    display: flex;
+    width:100%;
+    align-items: center;
+    padding-left: 20px;
+}
+
+#resturaunt {
+    padding: 10px;
+    display: flex;
+    width: 790px;
+    flex-direction: row;
+    background-color: rgb(241, 241, 241);
+}
+
+#resturaunt_info {
+    display:flex;
+    padding: 5px;
+    flex-direction: column;
+}
+
+#resuturaunt_title {
+}
+
+#resturaunt_eta {
+    margin-left: 100px;
+}
+
+#resturaunt_cost {
+    margin-left: 50px;
 }
 
