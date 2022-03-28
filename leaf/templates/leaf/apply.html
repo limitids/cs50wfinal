@@ -1,0 +1,32 @@
+
+{% extends "leaf/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+<h1>Join us today!</h1>
+
+<div id="resturaunt_application">
+    <form  id="resturaunt_app">
+        <label>
+            Resturaunt name: <input type="text">
+        </label>
+        <label>
+            Email: <input type="text" placeholder="used for order contact">
+        </label>
+        <label>
+            Resturaunt Website: <input type="text" placeholder="">
+        </label>
+        <p>for map integration</p>
+        <label>
+            Address: <input type="text" placeholder="">
+        </label>
+        <input type="submit">
+
+        <h6>Applications can take up to 48 hours to be accepted</h6>
+    </form>
+</div>
+
+
+{% endblock %}

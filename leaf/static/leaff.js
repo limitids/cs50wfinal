@@ -31,11 +31,21 @@ document.addEventListener('DOMContentLoaded',function()  {
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoibGltaXRpZHMiLCJhIjoiY2wxMmhmdTFyMW1udDNjcWg1Yjh6aW9ybCJ9.83KFrSYz5wDG6jmDKmCZRg'
         }).addTo(map);
+        
+        fetch(`${window.location.origin}/api/resturaunts`,{
+            method:'PUT',
+            body: JSON.stringify({
+                'long':`${long}`,
+                'lat':lat
+            })
+        }).then(response=> response.json())
+        .then(response => {
+                document.getElementById('testResturaunts').innerHTML += response.resturaunts
+        })
 
     var marker = L.marker([30.444740, -91.147400],{icon:icon}).addTo(map);
     marker.bindPopup("<a>La careta</a>")
     }
-
 
     if (document.getElementById('coordForm')) {
         document.getElementById('coordForm').addEventListener('submit',(e)=> {
@@ -68,26 +78,45 @@ document.addEventListener('DOMContentLoaded',function()  {
         })
     }
 
-    document.getElementById('resturaunt').addEventListener('click',() => {
+
+    if (document.getElementById('resturaunt_application')) {
+        document.getElementById('resturaunt_app').addEventListener('submit',(e)=> {
+
+            const form = document.getElementById('resturaunt_app')
+            const name = form.elements[0].value
+            const email = form.elements[1].value
+            const website = form.elements[2].value
+            const address =  form.elements[3].value
+            console.log('hey')
+                fetch(``, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "name":name,
+                        "email":email,
+                        "website":website,
+                        "address":website
+                    })
+                })
+    
+    
+    
+                location = `${location.href.replace('apply/','explore/')}`  // Sadly this reloads
+    
+    
+    
+            e.preventDefault()
+    
+        })
+    }
+
+    
+    document.getElementById('resturaunt') ? document.getElementById('resturaunt').addEventListener('click',() => {
         location = `${location.href.replace('explore/','resturaunt/')}`  // Sadly this reloads
 
-    })
+    }) : console.log('na')
     
+    //----------------------------------------------------------------------
 
-})
+        
 
-/*
-fetch(`api/resturaunts`, {
-    method: 'PUT',
-    body: JSON.stringify({
-        "zip": `${zip}`
     })
-}).then(response => response.json())
-.then(
-    response => {
-
-        document.getElementById('resturauntList').innerHTML = `<h1> ${response.resturaunts} </h1>`
-
-    }
-)
-*/

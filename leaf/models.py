@@ -11,11 +11,13 @@ class zipToCoord(models.Model):
 
 
 class Resturaunt(models.Model):
-    lat = models.TextField()
-    long = models.TextField()
+    address = models.TextField()
     name = models.TextField()
-    rating = models.IntegerField()
-    email = models.IntegerField()
+    long = models.TextField()
+    lat = models.TextField()
+    email = models.TextField()
+    website = models.TextField()
+    status = models.TextField()
 
 
 

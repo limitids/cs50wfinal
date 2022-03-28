@@ -1,0 +1,68 @@
+
+{% extends "leaf/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+<h1>Applications</h1>
+
+<div id='applications'>
+    {% for application in applications %}
+        <div id='application' value="{{application.id}}">
+            <h1>{{application.name}}</h1>
+            <h3 id='application_email'>Email: {{application.email}}</h3>
+            <h3 id='application_website'>Website: <a href='https://{{application.address}}'}>{{application.address}}</a></h3>
+            <h3 id='application_address'>Address: </h3>
+            <h3 id='application_status'> STATUS: {{application.status}}</h3>
+
+            
+        </div>
+
+        <div id="popup_{{application.id}}" class="popup">
+            <div class="popup-content">
+                <span class="close">&times;</span>
+                <p>REVIEW APPLICATION #{{application.id}} </p>
+                <form id="popup_form">
+                    <label>
+                        NAME: <input type="text" value="{{application.name}}">
+                    </label>
+                    <label>
+                        Address: <input type="text" value="{{application.address}}">
+                    </label>
+                    <label>
+                        EMAIL: <input type="text" value="{{application.email}}">
+                    </label>
+                    <label>
+                        WEBSITE: <input type="text" value="{{application.website}}">
+                    </label>
+                    <p>to complete..</p>
+                    <label>
+                        LONGITUDE: <input type="text" value="">
+                    </label>
+                    <label>
+                        LATITUDE: <input type="text" value="">
+                    </label>
+                    <input type="hidden" value="{{application.id}}">
+                    <div class="buttons">
+                        <button id="popup_approve">Approve</button>
+                        <button id="popup_deny">Deny</button>
+                    </div>
+                <form>
+            </div>
+
+        </div>
+    {% endfor %}
+
+    class Resturaunt(models.Model):
+    address = models.TextField()
+    name = models.TextField()
+    long = models.IntegerField()
+    lat = models.IntegerField()
+    email = models.TextField()
+    website = models.TextField()
+    status = models.TextField()
+</div>
+
+
+{% endblock %}
