@@ -1,0 +1,77 @@
+
+{% extends "leaf/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div id='resturaunt_info'>
+    <h1>{{resturaunt.name}}</h1>
+    <div id='resturaunt_info_sub'>
+        <p>{{resturaunt.address}}</p>
+        <p>{{resturaunt.email}}</p>
+    </div>
+</div>
+<hr>
+<div id='resturaunt_nav'>
+    <button id='button_menu'>Menu</button>
+    <button id='button_about'>About</button>
+    <button id='button_reviews'>Reviews</button>
+
+</div>
+
+<div id='menu'>
+    {% if user == resturaunt.creator %}
+    <button id='menu_add'>add menu item</button>
+    
+    <div class="popup" id='menu_add_popup'>
+        <div class="popup-content">
+            <span id='popup_close'class="close-button">&times;</span>
+            <h1>Add Menu Item to {{resturaunt.name}}</h1>
+            <form id='menu_add_form'>
+                <input type='text' placeholder='name'>
+                <input type='text' placeholder='cost'>
+                <input type='text' placeholder='description'>
+                <input type='text' placeholder='image link'>
+                <input type='hidden' value='{{resturaunt.id}}'>
+                <input type='submit'>
+
+            </form>
+        </div>
+    </div>
+    {% endif %}
+    <div id='menu_items'>
+        {% for item in menuitems %}
+
+        <div id = 'menu_item' data-id='{{item.id}}'> 
+            <h3 id='menu_item_title' data-id='{{item.id}}'>{{item.title}}</h3>
+            <p id='menu_item_desc' data-id='{{item.id}}' >{{item.description}}</p>
+            <div id='menu_item_2'>
+                <p id='menu_item_cost'data-id='{{item.id}}'>${{item.cost}} </p>
+            </div>
+            <img id='menu_item_img' data-id='{{item.id}}' src='{{item.img}}'>
+
+        </div>
+
+        <div class="popup menu_item_popup" id='menu_item_popup{{item.id}}'>
+            <div class="popup-content">
+                <span id='popup_close2'class="close-button" data-id='{{item.id}}'>&times;</span>
+                <h1>Add {{item.title}} to cart?</h1>
+                <p>${{item.cost}}</p>
+                <input type='text' placeholder='amount' id='amount'>
+                <button id='menu_additem{{item.id}}' data-id = '{{item.id}}'>Add</button>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id='reviews'>
+    <h1>this is the reviews page</h1>
+</div>
+
+<div id='about'>
+    <h1>this is the about page</h1>
+</div>
+
+
+{% endblock %}

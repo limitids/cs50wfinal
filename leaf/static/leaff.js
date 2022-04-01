@@ -1,7 +1,6 @@
 
 
 
-
 document.addEventListener('DOMContentLoaded',function()  {
 
     function getCookie(name) {
@@ -10,6 +9,7 @@ document.addEventListener('DOMContentLoaded',function()  {
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
+    
 
     icon = L.divIcon({
         className: 'custom-div-icon',
@@ -32,16 +32,7 @@ document.addEventListener('DOMContentLoaded',function()  {
             accessToken: 'pk.eyJ1IjoibGltaXRpZHMiLCJhIjoiY2wxMmhmdTFyMW1udDNjcWg1Yjh6aW9ybCJ9.83KFrSYz5wDG6jmDKmCZRg'
         }).addTo(map);
         
-        fetch(`${window.location.origin}/api/resturaunts`,{
-            method:'PUT',
-            body: JSON.stringify({
-                'long':`${long}`,
-                'lat':lat
-            })
-        }).then(response=> response.json())
-        .then(response => {
-                document.getElementById('testResturaunts').innerHTML += response.resturaunts
-        })
+
 
     var marker = L.marker([30.444740, -91.147400],{icon:icon}).addTo(map);
     marker.bindPopup("<a>La careta</a>")
@@ -87,6 +78,11 @@ document.addEventListener('DOMContentLoaded',function()  {
             const email = form.elements[1].value
             const website = form.elements[2].value
             const address =  form.elements[3].value
+            const longitude =  form.elements[4].value
+            const latitude =  form.elements[5].value
+            console.log(longitude)
+            console.log(latitude)
+
             console.log('hey')
                 fetch(``, {
                     method: 'POST',
@@ -94,7 +90,9 @@ document.addEventListener('DOMContentLoaded',function()  {
                         "name":name,
                         "email":email,
                         "website":website,
-                        "address":website
+                        "address":address,
+                        'longitude':longitude,
+                        'latitude':latitude
                     })
                 })
     
@@ -109,14 +107,48 @@ document.addEventListener('DOMContentLoaded',function()  {
         })
     }
 
-    
-    document.getElementById('resturaunt') ? document.getElementById('resturaunt').addEventListener('click',() => {
-        location = `${location.href.replace('explore/','resturaunt/')}`  // Sadly this reloads
-
-    }) : console.log('na')
+    function resturaunt(id) {
+        location = `${location.href.replace('explore/',`resturaunt/${id}`)}`  // Sadly this reloads
+    }
     
     //----------------------------------------------------------------------
 
         
+    if (document.getElementById('resturaunt_holder')) {
+        fetch(`${window.location.origin}/api/resturaunts`,{
+            method:'PUT',
+            body: JSON.stringify({
+                'long':`${getCookie('long')}`,
+                'lat':getCookie('lat')
+            })
+        }).then(response=> response.json())
+        .then(response => {
+            response.resturaunts.forEach(resturaunt => {
+                document.getElementById('resturaunt_holder').innerHTML += `
+                
+                <div id='resturaunt' data-id="${resturaunt.id}">
+                <img id='resuraunt_img' data-id="${resturaunt.id}" src='https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/082012/raising_canes_logo.jpg?itok=YtGVVbR0' heihgt=50 width=150>
+                <div id='resturaunt_info' data-id="${resturaunt.id}" >
+                    <h1 id='resturaunt_title' data-id="${resturaunt.id}" >${resturaunt.name}</h1>
+                    <h6 id='resturaunt_category' data-id="${resturaunt.id}" >Fried Chicken</h6>
+                </div>
+                <h3 id='resturaunt_eta'data-id="${resturaunt.id}">40-50 min</h3>
+                <h3 id='resturaunt_cost'data-id="${resturaunt.id}">$1.49 per delivery</h3>
+                </div>
+                
+                
+                `    })    
+            })
+        .then(response => {
+            let resturaunts = document.querySelectorAll('#resturaunt')
+            
+            resturaunts.forEach(resturaunt => {
+                resturaunt.addEventListener('click',(e) => {
+                    location = `${location.href.replace('explore/',`resturaunt/${e.target.dataset.id}`)}`  // Sadly this reloads
+                })
+            })
+                  
+        })
+    }
 
     })

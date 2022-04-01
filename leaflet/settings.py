@@ -26,6 +26,8 @@ SECRET_KEY = 'django-insecure-1h8b787h=dw)_^&v7u!borg!sew$9f+*_^8_v!06%-*4@5*45s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = "leaf.User"
+
 ALLOWED_HOSTS = []
 
 
