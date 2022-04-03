@@ -118,3 +118,7 @@ right: 40px;
 }
 
 
+#resturaunt_info_sub {
+    display: flex;
+    flex-direction: column;
+}

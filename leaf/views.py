@@ -51,8 +51,6 @@ def getResturaunts(request):
         long = float(data['long'])
         lat = float(data['lat'])
         print(long,lat)
-        searchRange = 20 #in miles
-        resturauntList = []
         resturaunts = Resturaunt.objects.filter(long__range=(long-0.33,long+0.33)).filter(lat__range=(lat-0.28,lat+0.28)).values()
         print(resturaunts)
         return JsonResponse({'resturaunts':list(resturaunts)})
@@ -184,3 +182,8 @@ def addMenuItem(request):
             return HttpResponse(status=404)
         MenuItem.objects.create(resturaunt=Resturaunt.objects.get(id=restid),title=name,cost=cost,description=desc,img=img)
         return HttpResponse(status=200)
+
+
+
+def cart(request):
+    return render(request,'leaf/cart.html')

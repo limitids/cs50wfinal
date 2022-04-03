@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded',function()  {
 
             const form = document.getElementById('coordForm')
             const zip = form.elements[0].value
-    
+            const json = JSON.stringify({"gay":"gay"})
+            document.cookie = `cart="${json}"`
                 fetch(`api/coords`, {
                     method: 'PUT',
                     body: JSON.stringify({
@@ -53,8 +54,8 @@ document.addEventListener('DOMContentLoaded',function()  {
                 .then(
                     response => {
                         let cookie
-                        document.cookie = `long=${response.long}`;
                         document.cookie = `lat=${response.lat}`;
+                        document.cookie = `long=${response.long}`;
                     }
                 )
     

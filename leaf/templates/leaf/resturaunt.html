@@ -58,7 +58,7 @@
                 <h1>Add {{item.title}} to cart?</h1>
                 <p>${{item.cost}}</p>
                 <input type='text' placeholder='amount' id='amount'>
-                <button id='menu_additem{{item.id}}' data-id = '{{item.id}}'>Add</button>
+                <button id='menu_additem{{item.id}}' data-id = '{"name":"{{item.title}}","cost":"{{item.cost}}","resturaunt":"{{item.resturaunt.name}}"}'>Add</button>
         </div>
         </div>
         {% endfor %}
